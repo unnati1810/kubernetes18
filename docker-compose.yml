@@ -1,0 +1,19 @@
+services:
+    container1:
+        container_name: container1
+        image: unnatikapadia/container1:latest
+        ports:
+            - 6000:6000
+        volumes:
+            - .:/app/data
+        depends_on: 
+            - container2
+    container2:
+        container_name: container2
+        image: unnatikapadia/container2:latest
+        ports:
+            - 6002:6002
+        volumes:
+            - .:/app/data
+
+

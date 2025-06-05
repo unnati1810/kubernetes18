@@ -1,0 +1,33 @@
+# Cloud Build Trigger: $BUILD_ID
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "microservice-deployment"
+  namespace: "default"
+  labels:
+    app: "microservice-deployment"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "microservice-deployment"
+  template:
+    metadata:
+      labels:
+        app: "microservice-deployment"
+    spec:
+      containers:
+      - name: "container1-image-sha256-1"
+        image: "us-central1-docker.pkg.dev/cedar-chemist-417601/kubernetes-assignment/container1-image"
+        volumeMounts:
+          - mountPath: /home/Unnati_PV_dir
+            name: kubernetes-volume-1
+      - name: "container2-image-sha256-2"
+        image: "us-central1-docker.pkg.dev/cedar-chemist-417601/kubernetes-assignment/container2-image"
+        volumeMounts:
+          - mountPath: /home/Unnati_PV_dir
+            name: kubernetes-volume-1
+      volumes:
+        - name: kubernetes-volume-1
+          persistentVolumeClaim:
+            claimName: kubernetes-volume-claim-1

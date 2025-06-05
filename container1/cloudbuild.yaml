@@ -1,0 +1,26 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/cedar-chemist-417601/kubernetes-assignment/container1-image', '.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'us-central1-docker.pkg.dev/cedar-chemist-417601/kubernetes-assignment/container1-image' ]
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [ 'apply', '-f', './kubernetes/persistent-volume/persistent-volume.yaml' ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-cluster'
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [ 'apply', '-f', './kubernetes/persistent-volume/persistent-volume-claim.yaml' ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-cluster'
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [ 'apply', '-f', './kubernetes/deployment.yaml' ]
+    env:
+      - 'BUILD_ID=$BUILD_ID'
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-cluster'
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [ 'apply', '-f', './kubernetes/service.yaml' ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-cluster'
