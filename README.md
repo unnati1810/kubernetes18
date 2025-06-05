@@ -1,7 +1,7 @@
 # kubernetes18
 Here's a tailored **project summary for your GitHub README.md** file:
 
----
+
 
 ## 🚀 Microservices Deployment on GCP with CI/CD & Shared Persistent Volume
 
@@ -37,6 +37,6 @@ This project showcases the development and deployment of two simple microservice
 * Secure, scalable, and production-grade GKE setup.
 * Persistent shared data storage between services.
 
----
+
 
 
